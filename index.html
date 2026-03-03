@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For my Bebiii </title>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-color: #fff0f3;
+            font-family: 'Quicksand', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+        }
+
+        .card {
+            background: white;
+            padding: 25px;
+            border-radius: 30px;
+            box-shadow: 0 10px 30px rgba(255, 182, 193, 0.4);
+            text-align: center;
+            max-width: 350px;
+            width: 90%;
+            transition: all 0.3s ease;
+        }
+
+        img {
+            width: 100%;
+            max-width: 250px;
+            height: auto;
+            border-radius: 20px;
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            color: #ff4d6d;
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            min-height: 60px;
+        }
+
+        .btn-container {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        button {
+            background-color: #ff758f;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.2s, background-color 0.2s;
+            box-shadow: 0 4px 10px rgba(255, 117, 143, 0.3);
+        }
+
+        button:hover {
+            transform: scale(1.05);
+            background-color: #ff4d6d;
+        }
+
+        .back-btn {
+            background-color: #adb5bd;
+            margin-top: 10px;
+        }
+
+        .hidden { display: none; }
+    </style>
+</head>
+<body>
+
+    <div class="card" id="display-card">
+        <img id="cat-img" src="" alt="Cute Cat Doodle">
+        <h2 id="message-text"></h2>
+        <div class="btn-container" id="button-area">
+            </div>
+    </div>
+
+    <script>
+        const steps = [
+            { img: "https://raw.githubusercontent.com/kayealexiss29-sys/pic/refs/heads/main/hi.jpg", msg: "hi bebiiii", btn: "Next" },
+            { img: "https://raw.githubusercontent.com/kayealexiss29-sys/pic/refs/heads/main/doing.jpg", msg: "hope u're doing good diyan", btn: "Next" },
+            { img: "https://raw.githubusercontent.com/kayealexiss29-sys/pic/refs/heads/main/virtual.jpg", msg: "virtual hug muna", btn: "Next" },
+            { img: "https://raw.githubusercontent.com/kayealexiss29-sys/pic/refs/heads/main/miss.jpg", msg: "i miss you:<", btn: "Next" },
+            { img: "https://raw.githubusercontent.com/kayealexiss29-sys/pic/refs/heads/main/wait.jpg", msg: "can't wait makauwiT^T", btn: " Next" },
+            { img: "https://raw.githubusercontent.com/kayealexiss29-sys/pic/refs/heads/main/miss%20too.jpg", msg: "hope u miss me too...", btn: "Next" },
+            { img: "https://raw.githubusercontent.com/kayealexiss29-sys/pic/refs/heads/main/for%20u.jpg", msg: "flowers for youuu ", btn: "Next " },
+            { img: "https://raw.githubusercontent.com/kayealexiss29-sys/pic/refs/heads/main/loveu.jpg", msg: "iloveyouuuuuu ", btn: "Next " },
+            { img: "https://raw.githubusercontent.com/kayealexiss29-sys/pic/refs/heads/main/miss%20too.jpg", msg: "do you miss me too?", btn: "Next" },
+    { img: "https://raw.githubusercontent.com/kayealexiss29-sys/pic/refs/heads/main/kiss%20q.jpg", msg: "kiss ko?", btn: "Next" },
+            { img: "https://raw.githubusercontent.com/kayealexiss29-sys/pic/refs/heads/main/hihihihi.jpg", msg: "ihhhh", btn: "Next " },
+            { img: "https://raw.githubusercontent.com/kayealexiss29-sys/pic/refs/heads/main/lusm.jpg", msg: "Iloveyouuuusomuchhh", btn: "Next" },
+            { img: "https://raw.githubusercontent.com/kayealexiss29-sys/pic/refs/heads/main/lusm.jpg", msg: "iloveyouuusomuch mwahhh!", type: "choice" }
+        ];
+
+        // Placeholder fallback images (using cute cat placeholders for reliability)
+        const getImg = (idx) => `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${[25, 35, 133, 151, 175, 220, 280, 300, 301, 311, 312, 470][idx]}.png`;
+
+        let currentStep = 0;
+
+        function render() {
+            const data = steps[currentStep];
+            const imgEl = document.getElementById('cat-img');
+            const msgEl = document.getElementById('message-text');
+            const btnArea = document.getElementById('button-area');
+
+            // Using placeholder art for the cat doodles
+            imgEl.src = `https://api.dicebear.com/7.x/adventurer/svg?seed=${currentStep + 10}&backgroundColor=f8bbd0`;
+            msgEl.innerText = data.msg;
+            btnArea.innerHTML = "";
+
+            if (data.type === "choice") {
+                const b1 = document.createElement('button');
+                b1.innerText = "iloveyouuutoosomuch";
+                b1.onclick = () => showFinal("happy");
+                
+                const b2 = document.createElement('button');
+                b2.innerText = "iloveyouuu";
+                b2.onclick = () => showFinal("sad");
+
+                btnArea.appendChild(b1);
+                btnArea.appendChild(b2);
+            } else {
+                const b = document.createElement('button');
+                b.innerText = data.btn;
+                b.onclick = next;
+                btnArea.appendChild(b);
+            }
+        }
+
+        function next() {
+            currentStep++;
+            render();
+        }
+
+        function showFinal(type) {
+            const imgEl = document.getElementById('cat-img');
+            const msgEl = document.getElementById('message-text');
+            const btnArea = document.getElementById('button-area');
+
+            if (type === "happy") {
+                imgEl.src = "https://raw.githubusercontent.com/kayealexiss29-sys/pic/refs/heads/main/hihihihi.jpg";
+                msgEl.innerText = "hihi, iloveyoumore ";
+            } else {
+                imgEl.src = "https://github.com/kayealexiss29-sys/pic/blob/main/miss.jpg";
+                msgEl.innerText = "*umiyak*";
+            }
+
+            btnArea.innerHTML = "";
+            const backBtn = document.createElement('button');
+            backBtn.innerText = "Back to choices";
+            backBtn.className = "back-btn";
+            backBtn.onclick = render;
+            btnArea.appendChild(backBtn);
+        }
+
+        render();
+    </script>
+</body>
+</html>
